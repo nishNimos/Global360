@@ -3,7 +3,11 @@ export async function safeFetch<T>(input: RequestInfo, init?: RequestInit): Prom
   try {
     const response = await fetch(input, init);
     if (!response.ok) throw new Error(`HTTP error ${response.status}`);
-    return await response.json();
+      const contentType = response.headers.get('content-type');
+    if (contentType?.includes('application/json')) {
+      return await response.json();
+    }
+    return null;
   } catch (error) {
     console.error('Fetch Error:', error);
     //notify user and log error
