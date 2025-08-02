@@ -1,0 +1,21 @@
+<ul>
+    @for(item of items; track item.id)
+    {
+    <li>
+        Item Name:
+        {{item.name}}
+        @if(item.description)
+        {
+        <p>Item Description: {{item.description}}</p>
+        }
+        <button (click)="removeItem(item.id)">Remove item</button>
+    </li>
+    }
+</ul>
+
+<p> Add new Item</p>
+<form [formGroup]="newItemForm" (submit)="$event.preventDefault();addItem()">
+    <input formControlName="name" placeholder="Item Name">
+    <input formControlName="description" placeholder="Item Description">
+    <button type="submit">Add Item</button>
+</form>
